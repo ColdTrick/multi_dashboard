@@ -1,0 +1,21 @@
+#widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tab-hover {
+	border-color: #333333;
+}
+
+.elgg-menu-title-multi_dashboard {
+	width: auto;
+	float: none;
+	position: absolute;
+	bottom: -1px;
+	margin: 0;
+	padding: 0;
+}
+
+.elgg-menu-title-multi_dashboard li:hover .elgg-icon-settings-alt {
+	display: inline-block;
+	margin: 0 -5px 0 5px;
+}
+
+.multi-dashboard-layout .elgg-main > .elgg-head {
+	position: relative;
+}
