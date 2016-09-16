@@ -21,6 +21,9 @@ function multi_dashboard_init() {
 	elgg_extend_view('css/elgg', 'css/multi_dashboard');
 	
 	elgg_register_ajax_view('multi_dashboard/forms/edit');
+	
+	// dashboard
+	elgg_register_plugin_hook_handler('entity:url', 'object', 'multi_dashboard_entity_url');
 
 	elgg_register_event_handler('create', 'object', '\ColdTrick\MultiDashboard\Widgets::linkWidgetToMultiDashboard');
 	elgg_register_plugin_hook_handler('route', 'dashboard', '\ColdTrick\MultiDashboard\Router::routeDashboard');
@@ -78,4 +81,22 @@ function multi_dashboard_get_widgets($user_guid, $context) {
 	}
 
 	return $sorted_widgets;
+}
+
+
+/**
+ * Sets default dashboard entity URL
+ *
+ * @param string $hook   "entity:url"
+ * @param string $type   "object"
+ * @param string $return URL
+ * @param array  $params Hook params
+ * @return string
+ */
+function multi_dashboard_entity_url($hook, $type, $return, $params) {
+	$entity = elgg_extract('entity', $params);
+	if (!$entity instanceof \MultiDashboard) {
+		return;
+	}
+	return elgg_normalize_url("dashboard/{$entity->guid}");
 }

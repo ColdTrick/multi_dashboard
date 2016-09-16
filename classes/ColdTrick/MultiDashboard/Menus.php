@@ -69,7 +69,7 @@ class Menus {
 			'text' => elgg_echo('dashboard'),
 			'href' => 'dashboard',
 			'title' => elgg_echo('dashboard'),
-			//'class' => 'widget-manager-multi-dashboard-tab-widgets',
+			'item_class' => 'multi-dashboard-widgets-tab',
 			'section' => 'multi_dashboard',
 			'priority' => 1,
 		]);
@@ -91,19 +91,22 @@ class Menus {
 				}
 			
 				if ($entity->canEdit()) {
-					$title .= elgg_view_icon('settings-alt', [
-						'class' => 'hidden',
-// 						'class' => 'widget-manager-multi-dashboard-tabs-edit',
-// 						'data-multi-dashboard-edit-link' => elgg_normalize_url("ajax/view/widget_manager/forms/multi_dashboard?guid={$entity->getGUID()}"),
-					]);
+					$title .= elgg_view_icon('settings-alt', ['class' => 'hidden']);
 				}
 
+				$item_class = ['multi-dashboard-tab'];
+				if ($entity->getDashboardType() == 'widgets') {
+					$item_class[] = 'multi-dashboard-widgets-tab';
+				}
+				
 				$return_value[] = \ElggMenuItem::factory([
 					'name' => 'dashboard_' . $entity->guid,
 					'href' => $entity->getURL(),
 					'text' => $title,
 					'rel' => $entity->getGUID(),
+					'id' => $entity->getGUID(),
 					'section' => 'multi_dashboard',
+					'item_class' => $item_class,
 					'priority' => $entity->order ?: $entity->time_created,
 				]);
 				
@@ -135,7 +138,7 @@ class Menus {
 				'text' => elgg_view_icon('round-plus'),
 				'href' => 'javascript:return void();',
 				'link_class' => 'elgg-lightbox',
-				'title' => elgg_echo('widget_manager:multi_dashboard:add'),
+				'title' => elgg_echo('add'),
 				'data-colorbox-opts' => json_encode([
 					'href' => elgg_normalize_url('ajax/view/multi_dashboard/forms/edit'),
 					'innerWidth' => 400,

@@ -1,7 +1,3 @@
-#widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tab-hover {
-	border-color: #333333;
-}
-
 .elgg-menu-title-multi_dashboard {
 	width: auto;
 	float: none;
@@ -11,9 +7,17 @@
 	padding: 0;
 }
 
+.elgg-menu-title-multi_dashboard .ui-droppable-hover {
+	border-color: #333333;
+}
+
 .elgg-menu-title-multi_dashboard li:hover .elgg-icon-settings-alt {
 	display: inline-block;
 	margin: 0 -5px 0 5px;
+}
+
+.elgg-menu-title-multi_dashboard li.ui-sortable-helper .elgg-icon-settings-alt {
+	display: none;
 }
 
 .multi-dashboard-layout .elgg-main > .elgg-head {

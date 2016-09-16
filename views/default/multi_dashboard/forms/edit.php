@@ -16,9 +16,9 @@ if (!empty($guid)) {
 }
 
 if (!empty($entity)) {
-	$title_text = elgg_echo('widget_manager:multi_dashboard:edit', [$entity->title]);
+	$title_text = elgg_echo('multi_dashboard:edit', [$entity->title]);
 } else {
-	$title_text = elgg_echo('widget_manager:multi_dashboard:new');
+	$title_text = elgg_echo('multi_dashboard:new');
 }
 
 $form = elgg_view_form('multi_dashboard/edit', ['class' => 'elgg-form-alt'], ['entity' => $entity]);

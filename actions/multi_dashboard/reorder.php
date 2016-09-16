@@ -3,8 +3,8 @@
 $order = get_input('order');
 
 if (empty($order)) {
-	register_error(elgg_echo('widget_manager:actions:multi_dashboard:reorder:error:order'));
-	forward();
+	register_error(elgg_echo('multi_dashboard:actions:reorder:error:order'));
+	forward(REFERER);
 }
 
 if (!is_array($order)) {
@@ -21,4 +21,4 @@ foreach ($order as $pos => $guid) {
 	$dashboard->order = ($pos + 1);
 }
 
-system_message(elgg_echo('widget_manager:actions:multi_dashboard:reorder:success'));
+system_message(elgg_echo('multi_dashboard:actions:reorder:success'));

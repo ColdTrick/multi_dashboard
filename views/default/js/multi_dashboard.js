@@ -1,7 +1,5 @@
 require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $, widgets) {
 
-	var widget_manager_multi_dashboard_dropped = false;
-		
 	// edit dashboard link
 	$(document).on('click', '.elgg-menu-title-multi_dashboard .elgg-icon-settings-alt', function(event) {
 		var href = elgg.normalize_url('ajax/view/multi_dashboard/forms/edit?guid=' + $(this).parent().attr('rel'));
@@ -13,10 +11,8 @@ require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $, widgets) {
 	});
 
 	// adds the ability to move widgets between dashboards
-	$('#widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tab-widgets').not('.elgg-state-selected').droppable({
+	$('.elgg-menu-title-multi_dashboard .multi-dashboard-widgets-tab').not('.elgg-state-selected').droppable({
 		accept: '.elgg-module-widget',
-		activeClass: 'widget-manager-multi-dashboard-tab-active',
-		hoverClass: 'widget-manager-multi-dashboard-tab-hover',
 		tolerance: 'pointer',
 		drop: function(event, ui) {
 			
@@ -33,9 +29,9 @@ require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $, widgets) {
 			ui.draggable.hide();
 
 			// prevent the widget from being moved
-			widget_manager_multi_dashboard_sort_stop = $('.elgg-widgets').sortable('option', 'stop');
+			var multi_dashboard_sort_stop = $('.elgg-widgets').sortable('option', 'stop');
 			$('.elgg-widgets').sortable('option', 'stop', function(){
-				$('.elgg-widgets').sortable('option', 'stop', widget_manager_multi_dashboard_sort_stop);
+				$('.elgg-widgets').sortable('option', 'stop', multi_dashboard_sort_stop);
 			});
 			
 			elgg.action('multi_dashboard/drop', {
@@ -54,15 +50,16 @@ require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $, widgets) {
 	});
 
 	$('.elgg-menu-title-multi_dashboard').sortable({
-		items: 'li.widget-manager-multi-dashboard-tab',
+		items: 'li.multi-dashboard-tab',
 		tolerance: 'pointer',
 		axis: 'x',
 		cursor: 'move',
 		distance: 5,
 		delay: 15,
-		forcePlaceholderSize: true,
+		helper: 'clone',
+		forceHelperSize: true,
 		update: function(event, ui) {
-			$order = $(this).sortable('toArray');
+			var $order = $('.elgg-menu-title-multi_dashboard li.multi-dashboard-tab a').map(function () { return this.id; }).get();
 			
 			elgg.action('multi_dashboard/reorder', {
 				data: {

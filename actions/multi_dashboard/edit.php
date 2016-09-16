@@ -10,24 +10,24 @@ $iframe_height = (int) get_input('iframe_height');
 $forward_url = REFERER;
 
 if (empty($title)) {
-	register_error(elgg_echo('widget_manager:actions:multi_dashboard:edit:error:input'));
-	forward($forward_url);
+	register_error(elgg_echo('multi_dashboard:actions:edit:error:input'));
+	forward(REFERER);
 }
 
 if (!empty($guid)) {
 	if ($entity = get_entity($guid)) {
 		if (!elgg_instanceof($entity, 'object', MultiDashboard::SUBTYPE)) {
 			unset($entity);
-			register_error(elgg_echo('InvalidClassException:NotValidElggStar', [$guid, MultiDashboard::SUBTYPE]));
+			register_error(elgg_echo('error:missing_data'));
 		}
 	} else {
-		register_error(elgg_echo('InvalidParameterException:NoEntityFound'));
+		register_error(elgg_echo('error:missing_data'));
 	}
 } else {
 	$entity = new MultiDashboard();
 	if (!$entity->save()) {
 		unset($entity);
-		register_error(elgg_echo('IOException:UnableToSaveNew', [MultiDashboard::SUBTYPE]));
+		register_error(elgg_echo('save:fail'));
 	}
 }
 
@@ -55,9 +55,9 @@ if (!empty($entity) && $entity->canEdit()) {
 	if ($entity->save()) {
 		$forward_url = $entity->getURL();
 		
-		system_message(elgg_echo('widget_manager:actions:multi_dashboard:edit:success'));
+		system_message(elgg_echo('multi_dashboard:actions:edit:success'));
 	} else {
-		register_error(elgg_echo('IOException:CouldNotMake', [$title]));
+		register_error(elgg_echo('save:fail'));
 	}
 }
 

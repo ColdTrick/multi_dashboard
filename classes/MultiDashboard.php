@@ -60,7 +60,7 @@ class MultiDashboard extends ElggObject {
 		$result = false;
 		
 		if (in_array($type, $this->allowed_dashboard_types)) {
-			$result = $this->set('dashboard_type', $type);
+			$result = $this->__set('dashboard_type', $type);
 		}
 		
 		return $result;
@@ -87,7 +87,7 @@ class MultiDashboard extends ElggObject {
 		$num = sanitise_int($num);
 		
 		if (!empty($num) && $num <= 6) {
-			$result = $this->set('num_columns', $num);
+			$result = $this->__set('num_columns', $num);
 		}
 		
 		return $result;
@@ -114,7 +114,7 @@ class MultiDashboard extends ElggObject {
 			return false;
 		}
 
-		return $this->set('iframe_url', $url);
+		return $this->__set('iframe_url', $url);
 	}
 	
 	/**
@@ -140,7 +140,7 @@ class MultiDashboard extends ElggObject {
 			return false;
 		}
 		
-		return $this->set('iframe_height', $height);
+		return $this->__set('iframe_height', $height);
 	}
 	
 	/**
